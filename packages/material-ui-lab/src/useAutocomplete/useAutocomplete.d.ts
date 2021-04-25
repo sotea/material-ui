@@ -4,7 +4,7 @@ export interface CreateFilterOptionsConfig<T> {
   ignoreAccents?: boolean;
   ignoreCase?: boolean;
   limit?: number;
-  matchFrom?: 'any' | 'start';
+  matchFrom?: 'any' | 'start' | 'every';
   stringify?: (option: T) => string;
   trim?: boolean;
 }

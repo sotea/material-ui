@@ -43,7 +43,19 @@ export function createFilterOptions(config = {}) {
         candidate = stripDiacritics(candidate);
       }
 
-      return matchFrom === 'start' ? candidate.indexOf(input) === 0 : candidate.indexOf(input) > -1;
+      if (matchFrom === 'start') {
+        return candidate.indexOf(input) === 0;
+      } else if (matchFrom === 'every') {
+        let match_flag = true;
+        const separatorString = /\s+/;
+        let arrayInput = input.split(separatorString);
+        for (let term in arrayInput) {
+          if (match_flag === false || candidate.indexOf(term) === -1) { match_flag = false } 
+        }
+        return match_flag;
+      } else {
+        return candidate.indexOf(input) > -1;
+      }
     });
 
     return typeof limit === 'number' ? filteredOptions.slice(0, limit) : filteredOptions;
